@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Categories</li>
+    </ol>
+</nav>
+
+<h2>
+    {% if category %}
+    <a href="{% url 'categories' %}">Category</a>: <span style="font-weight:400;">{{ category.name }}</span>
+    <a class="btn btn-primary" href="{% url 'create_category' %}?parent={{category.id}}">+ Add new</a>
+    {% else %}
+    Categories
+    <a class="btn btn-primary" href="{% url 'create_category' %}">+ Add</a>
+    {% endif %}
+</h2>
+{% if object_list %}
+<h4>Sub-categories</h4>
+<ul>
+    {% for object in object_list %}
+    <li><a href="?id={{object.id}}">{{ object.name }}</a></li>
+    {% endfor %}
+</ul>
+    {% else %}
+<p>No available sub-category</p>
+    {% endif %}
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Heavy vehicles</h2>
+<pre>
+    Title: {{ object.base_advertise.get.title }}
+    Brand: {{ object.brand }}
+    Model: {{ object.model }}
+
+</pre>
+{% endblock %}

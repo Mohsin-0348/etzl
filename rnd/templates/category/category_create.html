@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3>Create Category</h3>
+<form method="post">{% csrf_token %}
+  <div class="mb-3">
+      {{ form.name|as_crispy_field }}
+  </div>
+  <div class="mb-3">
+        {% if parent %}
+        <label class="form-label">Parent</label><br>
+        <input class="form-control" type="text" name="parent" value={{parent}} disabled autofocus>
+        {% else %}
+        {{ form.parent|as_crispy_field }}
+        {% endif %}
+  </div>
+  <div class="mb-3">
+      {{ form.depth|as_crispy_field }}
+  </div>
+  <div class="mb-3">
+      {{ form.keyword|as_crispy_field }}
+    <div id="emailHelp" class="form-text">This field data will be used for generating fields for this category</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

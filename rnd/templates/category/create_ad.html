@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Post-advertise</li>
+    </ol>
+</nav>
+
+<h2>
+    {% if category %}
+    Category: <span style="font-weight:400;">{{ category.name }}</span>
+    {% else %}
+    Categories
+    {% endif %}
+</h2>
+<div class="container">
+
+    {% if object_list %}
+    <h4>Sub-categories</h4>
+    <ul>
+        {% for object in object_list %}
+        <li><a href="?id={{object.id}}">{{ object.name }}</a></li>
+        {% endfor %}
+        {% else %}
+        <li>No available sub-category</li>
+        <li>Input fields</li>
+        {% if model_form %}
+        <form action="" method="post">{% csrf_token %}
+            <input type="text" name="ct_id" hidden value={{category.id}}>
+            {{ advertise_form|crispy }}
+            {{ model_form|crispy }}
+            <input type="submit">
+        </form>
+        {% else %}
+        <li>Please add sub-category for this category</li>
+        {% endif %}
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
